@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PokeAPIService } from 'src/app/services/poke-api.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { PokeAPIService } from 'src/app/services/poke-api.service';
 export class PokemonsComponent implements OnInit {
   Pokemons:any = [];
   constructor(
-    private PokeService: PokeAPIService
+    private PokeService: PokeAPIService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -17,8 +19,10 @@ export class PokemonsComponent implements OnInit {
   }
   getAllPokemons() {
     this.PokeService.getPokemons().subscribe(pokemons => {
-      console.log(pokemons);
       this.Pokemons = pokemons;
     })
+  }
+  showPoke(id: string) {
+    this.router.navigateByUrl(`pokemons/${id}`);
   }
 }
